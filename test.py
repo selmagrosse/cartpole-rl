@@ -1,6 +1,11 @@
 import gymnasium as gym
 from stable_baselines3 import DQN
 import numpy as np
+import matplotlib.pyplot as plt
+
+
+def moving_average(values, window_size):
+    return np.convolve(values, np.ones(window_size)/window_size, mode='valid')
 
 # Create environment
 env = gym.make("CartPole-v1")
@@ -9,7 +14,7 @@ env = gym.make("CartPole-v1")
 model = DQN.load("dqn_cartpole")
 
 # Number of test episodes
-num_episodes = 100
+num_episodes = 500
 # Track performance with total rewards
 total_rewards = []
 
@@ -30,6 +35,8 @@ for episode in range(num_episodes):
                   
 env.close()
 
+smoothed_rewards = moving_average(total_rewards, window_size=10)
+
 # Statistics
 avg_reward = np.mean(total_rewards)
 std_dev = np.std(total_rewards)
@@ -37,3 +44,15 @@ std_dev = np.std(total_rewards)
 print(f"Tested {num_episodes} episodes")
 print(f"Average reward: {avg_reward:.2f}")
 print(f"Standard deviation: {std_dev:.2f}")
+
+# Plot rewards
+plt.figure(figsize=(10,5))
+plt.plot(range(1, num_episodes + 1), total_rewards, label="Raw rewards")
+plt.plot(range(len(smoothed_rewards)), smoothed_rewards, label="Smoothed rewards", linewidth=2)
+plt.axhline(avg_reward, label=f"Average reward = {avg_reward:.2f}")
+plt.xlabel("Episode")
+plt.ylabel("Reward")
+plt.title("Testing performance of DQN on CartPole environment")
+plt.legend()
+plt.grid()
+plt.show()

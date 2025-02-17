@@ -1,5 +1,6 @@
 import gymnasium as gym
 from stable_baselines3 import DQN
+from stable_baselines3.common.logger import configure
 import yaml
 
 # Load hyperparameters from the YAML file
@@ -7,7 +8,7 @@ with open('configs/config.yaml', 'r') as file:
     config = yaml.safe_load(file)
     cartpole_config = config['CartPole-v1']
 
-# Create environment
+# Create environment with logging
 env = gym.make("CartPole-v1")
 
 # Create the DQN model
@@ -25,7 +26,8 @@ model = DQN(
     exploration_fraction=cartpole_config['exploration_fraction'],
     exploration_final_eps=cartpole_config['exploration_final_eps'],
     verbose=1,
-    policy_kwargs=eval(cartpole_config['policy_kwargs'])
+    policy_kwargs=eval(cartpole_config['policy_kwargs']),
+    tensorboard_log="./dqn_logs/"
     )
 
 # Train the the model and display the progress bar

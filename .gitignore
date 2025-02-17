@@ -13,3 +13,6 @@ __pycache__/
 # Ignore the RL model
 *.zip
 
+# Ignore RL training logs
+dqn_logs/
+
