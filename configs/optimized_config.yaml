@@ -1,0 +1,8 @@
+CartPole-v1:
+  batch_size: 128
+  buffer_size: 50000
+  exploration_fraction: 0.18161987538247737
+  gamma: 0.9750876068453841
+  learning_rate: 8.057486512412702e-05
+  target_update_interval: 7800
+  train_freq: 1
