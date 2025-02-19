@@ -8,11 +8,6 @@ import torch
 import yaml
 import optuna
 
-# Load hyperparameters from the YAML file
-with open('configs/config.yaml', 'r') as file:
-    config = yaml.safe_load(file)
-    cartpole_config = config['CartPole-v1']
-
 SEED = 42
 # Set fixed seed for reproducibility
 def set_seed(SEED):
@@ -21,7 +16,7 @@ def set_seed(SEED):
     torch.manual_seed(SEED)
 
 # Define the objective function
-def objective(trial):
+def objective(trial, cartpole_config, model_path="dqn_cartpole_optuna.zip"):
 
     # Create environment
     env = gym.make("CartPole-v1")
@@ -62,24 +57,37 @@ def objective(trial):
     episode_rewards, _ = evaluate_policy(model, env, return_episode_rewards=True)
     mean_reward = np.mean(episode_rewards)
 
-    # Save the trained model
-    model.save("dqn_cartpole")
+    try:
+        best_value = trial.study.best_value
+    except ValueError:  # No completed trials exist yet
+        best_value = float("-inf")  
+
+    if mean_reward > best_value:
+        print(f"New best model found with reward {mean_reward:.2f}, saving...")
+        model.save(model_path)
+
 
     # Close the environment
     env.close()
 
     return mean_reward
 
-# Run Optuna optimization
-study = optuna.create_study(direction='maximize')
-study.optimize(objective, n_trials=100, timeout=1800)
+def train_model_optuna(config_file, n_trials=100, timeout=1800):
+# Load hyperparameters from the YAML file
+    with open(config_file, 'r') as file:
+        config = yaml.safe_load(file)
+        cartpole_config = config['CartPole-v1']
 
-if len(study.trials) > 0 and study.best_trial.state == optuna.trial.TrialState.COMPLETE:
-    optimized_params = study.best_params
-    print(f"Best hyperparameters: {optimized_params}")
+    # Run Optuna optimization
+    study = optuna.create_study(direction='maximize')
+    study.optimize(lambda trial: objective(trial, cartpole_config), n_trials=n_trials, timeout=timeout)
 
-    # Save the optimized hyperparameters into a new config file
-    with open("configs/optimized_config.yaml", "w") as f:
-        yaml.dump({"CartPole-v1": optimized_params}, f)
-else:
-    print("No completed trials found.")
+    if len(study.trials) > 0 and study.best_trial.state == optuna.trial.TrialState.COMPLETE:
+        optimized_params = study.best_params
+        print(f"Best hyperparameters: {optimized_params}")
+
+        # Save the optimized hyperparameters into a new config file
+        with open("configs/optimized_config.yaml", "w") as f:
+            yaml.dump({"CartPole-v1": optimized_params}, f)
+    else:
+        print("No completed trials found.")
