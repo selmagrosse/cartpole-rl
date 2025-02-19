@@ -16,7 +16,7 @@ def set_seed(SEED):
     torch.manual_seed(SEED)
 
 # Define the objective function
-def objective(trial, cartpole_config, model_path="dqn_cartpole_optuna.zip"):
+def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
 
     # Create environment
     env = gym.make("CartPole-v1")
@@ -64,7 +64,7 @@ def objective(trial, cartpole_config, model_path="dqn_cartpole_optuna.zip"):
 
     if mean_reward > best_value:
         print(f"New best model found with reward {mean_reward:.2f}, saving...")
-        model.save(model_path)
+        model.save(model_file)
 
 
     # Close the environment
@@ -72,8 +72,10 @@ def objective(trial, cartpole_config, model_path="dqn_cartpole_optuna.zip"):
 
     return mean_reward
 
-def train_model_optuna(config_file, n_trials=100, timeout=1800):
-# Load hyperparameters from the YAML file
+def train_model_optuna(config_file, model_file="dqn_cartpole_optuna.zip", n_trials=100, timeout=1800):
+    
+    set_seed(SEED)
+    # Load hyperparameters from the YAML file
     with open(config_file, 'r') as file:
         config = yaml.safe_load(file)
         cartpole_config = config['CartPole-v1']
