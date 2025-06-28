@@ -77,6 +77,3 @@ def test_model(model_path, num_episodes=500, window_size=10, render=False, verbo
     plt.show()
 
     return {"average_reward": avg_reward, "std_dev": std_dev, "rewards": total_rewards}
-
-if __name__ == "__main__":
-    test_model(num_episodes=500, verbose=True)

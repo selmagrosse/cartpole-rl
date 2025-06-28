@@ -11,4 +11,4 @@ CartPole-v1:
   gradient_steps: 1
   exploration_fraction: 0.15
   exploration_final_eps: 0.05
-  policy_kwargs: "dict(net_arch=[256, 256])"
+  policy_kwargs: dict(net_arch=[256, 256])
