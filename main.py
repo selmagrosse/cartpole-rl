@@ -31,4 +31,4 @@ elif args.mode == "test_optuna":
 
 elif args.mode == "gif":
     model_file = "dqn_cartpole_optuna.zip"
-    test_model_gif(model_file, gif_path="cartpole_fixed.gif")
+    test_model_gif(model_file, gif_path="cartpole_optimized.gif")

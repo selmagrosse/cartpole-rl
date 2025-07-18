@@ -1,13 +1,13 @@
 CartPole-v1:
-  n_timesteps: 500000
+  n_timesteps: 100000
   policy: 'MlpPolicy'
-  learning_rate: 5.e-4
-  batch_size: 32
-  buffer_size: 200000
-  learning_starts: 100
+  learning_rate: 1.e-4
+  batch_size: 64
+  buffer_size: 100000 
+  learning_starts: 500
   gamma: 0.99
-  target_update_interval: 10000
-  train_freq: 4
+  target_update_interval: 100
+  train_freq: 128
   gradient_steps: 1
   exploration_fraction: 0.15
   exploration_final_eps: 0.05

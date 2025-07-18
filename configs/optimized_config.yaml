@@ -1,8 +1,14 @@
 CartPole-v1:
   batch_size: 32
-  buffer_size: 50000
-  exploration_fraction: 0.15201670660484934
-  gamma: 0.9530231445658821
-  learning_rate: 3.8408728402872526e-05
-  target_update_interval: 8400
-  train_freq: 1
+  buffer_size: 100000
+  exploration_final_eps: 0.037617132848834355
+  exploration_fraction: 0.14971022955384541
+  gamma: 0.99
+  gradient_steps: 128
+  learning_rate: 0.0006144413068708113
+  learning_starts: 1000
+  n_timesteps: 100000
+  policy: MlpPolicy
+  policy_kwargs: dict(net_arch=[256, 256])
+  target_update_interval: 8010
+  train_freq: 16
