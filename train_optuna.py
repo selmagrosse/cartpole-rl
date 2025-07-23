@@ -66,6 +66,7 @@ def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
         exploration_final_eps=exploration_final_eps,
         verbose=0,
         policy_kwargs=eval(cartpole_config['policy_kwargs']),
+        seed=42,
         tensorboard_log="./dqn_logs/optuna/"
         )
 

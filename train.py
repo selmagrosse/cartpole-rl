@@ -21,7 +21,7 @@ def train_model(config_file="configs/config.yaml", model_file="dqn_cartpole.zip"
         config = yaml.safe_load(file)
         cartpole_config = config['CartPole-v1']
 
-    # Create environment with logging
+    # Create environment
     env = gym.make("CartPole-v1")
     env.reset(seed=SEED)
 
