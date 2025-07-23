@@ -1,4 +1,4 @@
-gymnasium==1.0.0
+gymnasium[all]
 imageio==2.37.0
 matplotlib==3.10.0
 numpy==2.0.2
