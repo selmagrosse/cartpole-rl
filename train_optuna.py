@@ -29,7 +29,7 @@ def stop_if_500(study, trial, fixed_config):
         study.stop()
 
 # Define the objective function
-def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
+def objective(trial, cartpole_config, model_file="dqn_cartpole_optimized.zip"):
 
     # Create training environment
     env = gym.make("CartPole-v1")
@@ -87,7 +87,7 @@ def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
 
     return mean_reward
 
-def train_model_optuna(config_file, model_file="dqn_cartpole_optuna.zip", n_trials=200, timeout=3600):
+def train_model_optuna(config_file, model_file="dqn_cartpole_optimized.zip", n_trials=200, timeout=3600):
     
     set_seed(SEED)
     # Load hyperparameters from the YAML file
