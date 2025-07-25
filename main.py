@@ -12,23 +12,23 @@ args = parser.parse_args()
 config_file = "configs/config.yaml"
 
 if args.mode == "train_baseline":        
-    model_file = "dqn_cartpole_fixed.zip"
+    model_file = "dqn_cartpole_baseline.zip"
     train_model(config_file=config_file, model_file=model_file, progress_bar=True)
 
 elif args.mode == "train_optuna":
-    model_file_optuna = "dqn_cartpole_optuna.zip"
+    model_file_optuna = "dqn_cartpole_optimized.zip"
     train_model_optuna(config_file=config_file, model_file=model_file_optuna)
 
 elif args.mode == "test_baseline":
-    model_file = "dqn_cartpole_fixed.zip"
+    model_file = "dqn_cartpole_baseline.zip"
     results = test_model(model_file, verbose=True)
     print(results)
 
 elif args.mode == "test_optuna":
-    model_file = "dqn_cartpole_optuna.zip"
+    model_file = "dqn_cartpole_optimized.zip"
     results = test_model(model_file, verbose=True)
     print(results)
 
 elif args.mode == "gif":
-    model_file = "dqn_cartpole_optuna.zip"
+    model_file = "dqn_cartpole_optimized.zip"
     test_model_gif(model_file, gif_path="cartpole_optimized.gif")
