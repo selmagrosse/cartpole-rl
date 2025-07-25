@@ -35,10 +35,6 @@ def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
     env = gym.make("CartPole-v1")
     env.reset(seed=SEED)
 
-    # Evaluation environment (different seed)
-    # eval_env = gym.make("CartPole-v1")
-    # eval_env.reset(seed=SEED + 100) 
-
     # Define hyperparameter search space
     learning_rate = trial.suggest_float("learning_rate", 1e-4, 1e-3, log=True)
     batch_size = trial.suggest_categorical("batch_size", [32, 64, 128])
@@ -88,7 +84,6 @@ def objective(trial, cartpole_config, model_file="dqn_cartpole_optuna.zip"):
 
     # Close the environment
     env.close()
-    # eval_env.close()
 
     return mean_reward
 

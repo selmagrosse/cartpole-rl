@@ -17,20 +17,36 @@ This project implements a Deep Q-Network (DQN) to solve the CartPole-v1 environm
     pip install -r requirements.txt
 
 ## Training and testing
-To train the DQN model, run:
-
+To train the DQN model, run `main.py` in one of the following modes:
+1. Train the DQN model with baseline parameters stored in ```configs/config.yaml```:
 ```bash
-    python main.py
+    python main.py --mode train_baseline
 ```
-This will execute both the training with manually set hyperparameters and the training with Optuna hyperparameters optimization.
+2. Train the DQN model while running the Optuna for hyperparameter optimization:
+```bash
+    python main.py --mode train_optuna
+```
+The updated hyperparameters list is saved in ```configs/optimized_config.yaml```.
+3. Test the baseline DQN model:
+```bash
+    python main.py --mode test_baseline
+```
+4. Test the optimized DQN model:
+```bash
+    python main.py --mode test_optuna
+```
+5. Generate a GIF for the optimized model:
+```bash
+    python main.py --mode gif
+```
 
 ## Configuration
 
-The hyperparameters tuned manually are stored in ```configs/config.yaml``` and the hyperparameters tuned with Optuna are stored in ```configs/optimized_config.yaml```
+The hyperparameters set manually are stored in ```configs/config.yaml``` and the hyperparameters tuned with Optuna are stored in ```configs/optimized_config.yaml```
 
 ## Results
 
-After training, the model can be evaluated with tensorboard. After testing, learning rate (reward values over episodes) is plotted.
+After training, the model can be evaluated with Tensorboard. After testing, learning rate (reward values over episodes) is plotted.
 
 ## License
 
