@@ -13,7 +13,7 @@ def set_seed(SEED):
     np.random.seed(SEED)
     torch.manual_seed(SEED)
 
-def train_model(config_file="configs/config.yaml", model_file="dqn_cartpole.zip", progress_bar=False):
+def train_model(config_file="configs/config.yaml", model_file="dqn_cartpole_baseline.zip", progress_bar=False):
     
     set_seed(SEED)
     # Load hyperparameters from the YAML file
