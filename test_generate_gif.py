@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import imageio
 
-def test_model_gif(model_path, gif_path="cartpole_test.gif"):
+def test_model_gif(model_path, gif_path):
 
     # Create environment
     env = gym.make("CartPole-v1", render_mode="rgb_array")
