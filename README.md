@@ -2,7 +2,7 @@
 
 This project implements a Deep Q-Network (DQN) to solve the CartPole-v1 environment in Gymnasium using the Stable Baselines3 library. The model can be trained using hyperparameter optimization with Optuna. 
 
-A detailed explanation of the project and its underlying theory can be read in my [blog post](https://www.scisoulreflect.com/cart-pole-balancing-using-reinforcement-learning/).
+A detailed explanation of the project and its underlying theory can be read in my [blog post](https://selmagrosse.com/cart-pole-balancing-using-reinforcement-learning/).
 
 ## Installation
 
